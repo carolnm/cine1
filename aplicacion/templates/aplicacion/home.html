@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} home {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header id="main-header">
+        <img id="logo-header" src="{% static 'imagenes/logo.png' %}"" alt="logo" class="logo">
+        
+        <nav>
+            <ul>
+                <li><a href="{% url 'listar_peli' %}">listado peliculas</a></li>
+                <li><a href="{% url 'registrar_peli' %}">nueva pelicula</a></li>
+                {% if user.is_authenticated %}
+                <li>
+                    <a href="">{{user.username}}</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">cerrar sesion</a>
+                </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'login' %}">iniciar sesion</a>
+                </li>
+                <li>
+                    <a href="{% url 'registrar_usuario' %}">registrar</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main-content">
+        <article>
+            <header>
+				<h1>películas en cartelera</h1>
+			</header>
+    <div class="contenedor-pelicula">
+        {% for p in peliculas %}
+        <div class="imagen">
+            <h5>Película en cartelera</h5>
+            {% if p.imagen %}
+            <img src="{{p.imagen.url}}"  alt="" width="200px" height="300px">
+            {% endif %}
+        </div> 
+        {% endfor %}
+    </div>
+        </article>
+    </section>
+
+    {% block content %}
+
+    <section>
+        <article>
+            <h2> titulo</h2>
+            <p>hola, este el mi proyecto de la practica 1 de desarrollo de aplicaciones web en python y django</p>
+        </article>
+
+    {% endblock%}
+
+    
+        <footer id="main-footer">
+		     <a href="https://www.instagram.com/caro_nm_/">Soy DULCE CAROLINA NERI MERELL DEL 9°A C:</a>
+	    </footer> <!-- / #main-footer -->
+        
+    </section>
+    
+</body> 
+</html>
